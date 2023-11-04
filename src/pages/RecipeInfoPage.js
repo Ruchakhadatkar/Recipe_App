@@ -18,10 +18,6 @@ const RecipeInfoPage = () => {
     checkForLike();
   }, []);
 
-  useEffect(() => {
-    likeRecipe();
-    checkForLike();
-  }, [isLiked]);
 
   const fetchData = () => {
     fetch("http://localhost:4000/api/recipe/" + id)
@@ -47,18 +43,34 @@ const RecipeInfoPage = () => {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({ id }), // body data type must match "Content-Type" header
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        checkForLike()
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
+
+  const disLike =async()=>{
+    const response = await fetch("http://localhost:4000/api/favorite/"+id,  {
+      method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        checkForLike()
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+
+  }
 
   return (
     <div className="container d-flex d-wrap">
@@ -67,7 +79,13 @@ const RecipeInfoPage = () => {
           {" "}
           <div
             className="image p-4 "
-            style={{ width: "46%", border: "1px solid blue" }}
+            style={{
+              width: "46%",
+              border: "1px solid black",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <img
               src={selectedRecipe.image}
@@ -77,22 +95,22 @@ const RecipeInfoPage = () => {
             />
           </div>
           <div
-            className="recipeInfo p-3"
-            style={{ width: "53%", border: "1px solid red" }}
+            className="recipeInfo p-4 pt-3"
+            style={{ width: "53%", border: "1px solid black" }}
           >
-            <div className="d-flex">
-              <div style={{ width: "94%" }}>
+            <div className="d-flex p-0">
+              <div style={{ width: "93%" }}>
                 <h1> {selectedRecipe.recipeName}</h1>
               </div>
-              <div style={{ width: "6%" }}>
+              <div style={{ width: "7%", cursor: "pointer" }}>
                 <h1>
                   {isLiked ? (
                     <BsFillHeartFill
                       style={{
                         color: "red",
                         fontSize: "28px",
-                        marginLeft: "3px",
                       }}
+                      onClick={disLike}
                     />
                   ) : (
                     <BsHeart
@@ -113,16 +131,18 @@ const RecipeInfoPage = () => {
             <div
               className="d-flex mt-3 mb-4"
               style={{
+                cursor: "pointer",
                 textAlign: "center",
                 fontSize: "20px",
-                backgroundColor: "#bfbfbf",
+                backgroundColor: "white",
               }}
             >
               <div
                 className="ingredients"
                 style={{
+                  fontWeight: "500",
                   width: "50%",
-                  backgroundColor: isIngredient ? "pink" : "",
+                  backgroundColor: isIngredient ? "#ECECEC" : "",
                 }}
                 onClick={() => {
                   setIsIngredient(true);
@@ -133,8 +153,9 @@ const RecipeInfoPage = () => {
               <div
                 className="procedure"
                 style={{
+                  fontWeight: "500",
                   width: "50%",
-                  backgroundColor: isIngredient ? "" : "pink",
+                  backgroundColor: isIngredient ? "" : "#ECECEC",
                 }}
                 onClick={() => {
                   setIsIngredient(false);
@@ -145,13 +166,13 @@ const RecipeInfoPage = () => {
             </div>
             <div>
               {isIngredient ? (
-                <ul>
+                <ul style={{ fontSize: "19px" }}>
                   {selectedRecipe.ingredients.map((ingredient) => {
                     return <li>{ingredient}</li>;
                   })}
                 </ul>
               ) : (
-                <p style={{ fontSize: "20px" }}>{selectedRecipe.procedure}</p>
+                <p style={{ fontSize: "19px" }}>{selectedRecipe.procedure}</p>
               )}
             </div>
           </div>

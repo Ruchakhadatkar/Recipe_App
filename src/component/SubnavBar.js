@@ -10,7 +10,7 @@ const SubnavBar = () => {
 
   const fetchByCategory = (category) => {
     dispatch({ type: "SELECT_CATEGORY", payload: category });
-    fetch("http://localhost:4000/api/recipe/category/" + category)
+    fetch("http://localhost:4000/api/recipe/category/" + encodeURIComponent(category))
       .then((res) => res.json())
       .then((json) => {
         dispatch({ type: "RECIPE_FETCH_SUCCESS", payload: json });
@@ -18,10 +18,10 @@ const SubnavBar = () => {
       .catch((error) => console.log(error.message));
   };
   return (
-    <div class="container mt-5 d-flex justify-content-evenly ">
+    <div class="container mt-5 d-flex justify-content-evenly">
       <div
         class=" mx-3 mb-4"
-        style={{ width: "10rem" }}
+        style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Salad");
         }}
@@ -42,7 +42,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem" }}
+        style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Breakfast");
         }}
@@ -63,9 +63,9 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem" }}
+        style={{ width: "10rem",cursor: "pointer" }}
         onClick={() => {
-          fetchByCategory("Main");
+          fetchByCategory("Main Course");
         }}
       >
         <img
@@ -84,7 +84,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem" }}
+        style={{ width: "10rem",cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Drinks");
         }}
@@ -96,7 +96,7 @@ const SubnavBar = () => {
           style={{
             height: "122px",
             borderRadius: "50%",
-            border: "dotted orange  5px",
+            border: "dotted orange 5px",
           }}
         />
         <div class="card-body my-2">
@@ -105,7 +105,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem" }}
+        style={{ width: "10rem",cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Dessert");
         }}
@@ -117,7 +117,7 @@ const SubnavBar = () => {
           style={{
             height: "122px",
             borderRadius: "50%",
-            border: "dotted orange  5px",
+            border: "dotted orange 5px",
           }}
         />
         <div class="card-body my-2">

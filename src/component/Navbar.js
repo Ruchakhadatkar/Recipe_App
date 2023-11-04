@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { BsFillHeartFill } from "react-icons/bs";
 import { HiMagnifyingGlass } from "react-icons/hi2";
+import { useState } from "react";
+import { RecipeContext } from "../context/RecipeContext";
 
 const Navbar = () => {
+  const [search, setSearch] = useState("");
+  const {state,dispatch} = useContext(RecipeContext)
+
+  const searchRecipes = async (e) => {
+    e.preventDefault()
+    const response = await fetch("http://localhost:4000/api/recipe/search/"+search)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json)
+       dispatch({type:"RECIPE_FETCH_SUCCESS",payload:json})
+       setSearch("")
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -26,7 +45,7 @@ const Navbar = () => {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <Link to={"/favorite"}>
+              <Link to={"/favorite"} style={{ textDecoration: "none" }}>
                 <a class="nav-link active" aria-current="page">
                   Favorite
                   <BsFillHeartFill
@@ -42,12 +61,17 @@ const Navbar = () => {
           </ul>
           <form class="d-flex" role="search">
             <input
+            value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
               class="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
             />
             <button
+            onClick={(e)=>{searchRecipes(e)}}
               class="btn btn-outline-success"
               type="submit"
               style={{

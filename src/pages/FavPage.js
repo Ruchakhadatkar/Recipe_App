@@ -5,16 +5,18 @@ import { Link } from "react-router-dom";
 const FavPage = () => {
   const { state, dispatch } = useContext(RecipeContext);
   const { favoriteRecipes, loading } = state;
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = () => {
-    dispatch({ type: "RECIPE_FETCH_REQ" });
+    // dispatch({ type: "RECIPE_FETCH_REQ" });
     fetch("http://localhost:4000/api/favorite")
       .then((res) => res.json())
       .then((json) => {
-        dispatch({ type: "FETCH_FAV_RECIPE", payload: json });
+        console.log(json)
+        // dispatch({ type: "FETCH_FAV_RECIPE", payload: json });
       })
       .catch((error) => {
         console.log(error.message);
@@ -33,7 +35,7 @@ const FavPage = () => {
             {favoriteRecipes ? (
               favoriteRecipes.map((recipe) => {
                 return (
-                  <Link to={`/recipe/${recipe.recipeId._id}`}>
+                  <Link key={recipe._id} to={`/recipe/${recipe.recipeId._id}`}>
                     <div
                       class="card p-2 px-3 m-3"
                       style={{ width: " 17rem", height: "19.5rem" }}
