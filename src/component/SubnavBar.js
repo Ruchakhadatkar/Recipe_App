@@ -10,7 +10,10 @@ const SubnavBar = () => {
 
   const fetchByCategory = (category) => {
     dispatch({ type: "SELECT_CATEGORY", payload: category });
-    fetch("http://localhost:4000/api/recipe/category/" + encodeURIComponent(category))
+    fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/recipe/category/" +
+        encodeURIComponent(category)
+    )
       .then((res) => res.json())
       .then((json) => {
         dispatch({ type: "RECIPE_FETCH_SUCCESS", payload: json });
@@ -63,7 +66,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem",cursor: "pointer" }}
+        style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Main Course");
         }}
@@ -84,7 +87,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem",cursor: "pointer" }}
+        style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Drinks");
         }}
@@ -105,7 +108,7 @@ const SubnavBar = () => {
       </div>
       <div
         class=" mx-3"
-        style={{ width: "10rem",cursor: "pointer" }}
+        style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Dessert");
         }}

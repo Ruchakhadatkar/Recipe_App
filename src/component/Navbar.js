@@ -7,16 +7,17 @@ import { RecipeContext } from "../context/RecipeContext";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
-  const {state,dispatch} = useContext(RecipeContext)
+  const { state, dispatch } = useContext(RecipeContext);
 
   const searchRecipes = async (e) => {
-    e.preventDefault()
-    const response = await fetch("http://localhost:4000/api/recipe/search/"+search)
+    e.preventDefault();
+    const response = await fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/recipe/search/" + search
+    )
       .then((res) => res.json())
       .then((json) => {
-        console.log(json)
-       dispatch({type:"RECIPE_FETCH_SUCCESS",payload:json})
-       setSearch("")
+        dispatch({ type: "RECIPE_FETCH_SUCCESS", payload: json });
+        setSearch("");
       })
       .catch((error) => {
         console.log(error.message);
@@ -61,7 +62,7 @@ const Navbar = () => {
           </ul>
           <form class="d-flex" role="search">
             <input
-            value={search}
+              value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -71,7 +72,9 @@ const Navbar = () => {
               aria-label="Search"
             />
             <button
-            onClick={(e)=>{searchRecipes(e)}}
+              onClick={(e) => {
+                searchRecipes(e);
+              }}
               class="btn btn-outline-success"
               type="submit"
               style={{

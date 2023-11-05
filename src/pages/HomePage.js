@@ -14,7 +14,7 @@ const HomePage = () => {
   const fetchData = async () => {
     dispatch({ type: "RECIPE_FETCH_REQ" });
 
-    const response = await fetch("http://localhost:4000/api/recipe")
+    const response = await fetch("https://recipe-app-service-53ct.onrender.com/api/recipe")
       .then((res) => res.json())
       .then((json) => {
         dispatch({ type: "RECIPE_FETCH_SUCCESS", payload: json });

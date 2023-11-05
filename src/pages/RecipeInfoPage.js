@@ -10,7 +10,6 @@ const RecipeInfoPage = () => {
 
   const { state, dispatch } = useContext(RecipeContext);
   const { selectedRecipe } = state;
-  console.log(selectedRecipe);
   const { id } = useParams();
 
   useEffect(() => {
@@ -18,9 +17,8 @@ const RecipeInfoPage = () => {
     checkForLike();
   }, []);
 
-
   const fetchData = () => {
-    fetch("http://localhost:4000/api/recipe/" + id)
+    fetch("https://recipe-app-service-53ct.onrender.com/api/recipe/" + id)
       .then((res) => res.json())
       .then((json) => {
         dispatch({ type: "SELECTED_RECIPE_FETCH", payload: json });
@@ -29,62 +27,65 @@ const RecipeInfoPage = () => {
   };
 
   const checkForLike = () => {
-    fetch("http://localhost:4000/api/favorite/" + id)
+    fetch("https://recipe-app-service-53ct.onrender.com/api/favorite/" + id)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         setIsLiked(json.like);
       })
       .catch((error) => console.log(error.message));
   };
 
   const likeRecipe = async (id) => {
-    const response = await fetch("http://localhost:4000/api/favorite", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }), // body data type must match "Content-Type" header
-    })
+    const response = await fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/favorite",
+      {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }), // body data type must match "Content-Type" header
+      }
+    )
       .then((res) => res.json())
       .then((json) => {
-        checkForLike()
+        checkForLike();
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
 
-  const disLike =async()=>{
-    const response = await fetch("http://localhost:4000/api/favorite/"+id,  {
-      method: "DELETE", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+  const disLike = async () => {
+    const response = await fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/favorite/" + id,
+      {
+        method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((json) => {
-        checkForLike()
+        checkForLike();
       })
       .catch((error) => {
         console.log(error.message);
       });
-
-  }
+  };
 
   return (
-    <div className="container d-flex d-wrap">
+    <div className="container d-flex  ">
       {selectedRecipe ? (
         <>
           {" "}
           <div
-            className="image p-4 "
+            className="image p-4 d-wrap"
             style={{
               width: "46%",
-              border: "1px solid black",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              // alignItems: "center",
             }}
           >
             <img
@@ -96,7 +97,11 @@ const RecipeInfoPage = () => {
           </div>
           <div
             className="recipeInfo p-4 pt-3"
-            style={{ width: "53%", border: "1px solid black" }}
+            style={{
+              width: "53%",
+              border: "1px solid gray",
+              borderRadius: "8px",
+            }}
           >
             <div className="d-flex p-0">
               <div style={{ width: "93%" }}>
