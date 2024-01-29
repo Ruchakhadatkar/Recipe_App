@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { RecipeContext } from "../context/RecipeContext";
 import { Link } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
+import { Spinner } from "react-bootstrap";
 // import {  TiDeleteOutline } from "react-icons/ti";
 
 const FavPage = () => {
@@ -17,7 +18,7 @@ const FavPage = () => {
     fetch("https://recipe-app-service-53ct.onrender.com/api/favorite")
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         dispatch({ type: "FETCH_FAV_RECIPE", payload: json });
       })
       .catch((error) => {
@@ -46,17 +47,35 @@ const FavPage = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="ms-4 mt-5 ">Favorite Recipe</h1>
+      <h1 className="ms-4 mt-5 " style={{ fontSize: "32px" }}>
+        Favorite Recipe
+      </h1>
       <div className="container my-5 d-flex flex-wrap">
         {loading ? (
-          <h1>Loading...</h1>
+          <div
+            className="spinner"
+            style={{
+              margin: "auto",
+              marginTop: "7rem",
+              color: "gray",
+            }}
+          >
+            <Spinner
+              animation="border"
+              role="status"
+              style={{ width: "45px", height: "45px" }}
+            >
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
         ) : (
           <>
             {" "}
             {favoriteRecipes ? (
-              favoriteRecipes.map((recipe) => {
+              favoriteRecipes.map((recipe, i) => {
                 return (
                   <div
+                    key={i}
                     class="card p-2 px-3 m-3"
                     style={{
                       width: " 17rem",

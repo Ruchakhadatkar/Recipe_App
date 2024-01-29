@@ -4,6 +4,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { useState } from "react";
 import { RecipeContext } from "../context/RecipeContext";
+import logo from "../Assets/logo-recipe.jpg";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -28,10 +29,29 @@ const Navbar = () => {
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <Link to={"/"} style={{ textDecoration: "none" }}>
-          <h1 class="navbar-brand" style={{ fontSize: "25px" }}>
-            Recipe App
+          <h1
+            class="navbar-brand"
+            style={{ fontSize: "13px", fontWeight: 700 , margin: "3px 8px"}}
+          >
+            LET'S{" "}
+            <span
+              className="appName"
+              style={{ display: "block", fontSize: "20px",fontWeight: 800 ,color:"green" }}
+            >
+              COOK
+            </span>
           </h1>
         </Link>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <div className="appLogo">
+            <img
+              src={logo}
+              style={{ height:"36px", width:"50px",margin: "0px 4px",
+              marginBottom:" 6px"}}
+            />
+          </div>
+        </Link>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -47,7 +67,11 @@ const Navbar = () => {
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <Link to={"/favorite"} style={{ textDecoration: "none" }}>
-                <a class="nav-link active" aria-current="page">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  style={{ fontWeight: 500, marginLeft:"20px" }}
+                >
                   Favorite
                   <BsFillHeartFill
                     style={{
@@ -95,7 +119,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-

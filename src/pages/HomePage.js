@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import SubnavBar from "../component/SubnavBar";
 import { RecipeContext } from "../context/RecipeContext";
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
+
 const HomePage = () => {
   const { state, dispatch } = useContext(RecipeContext);
   const { loading, recipes, error, selectedCategory } = state;
@@ -39,11 +41,26 @@ const HomePage = () => {
         <SubnavBar />
       </div>
       <div className="container mx-auto">
-        <h1 className="ms-4 mt-5 " style={{ fontSize: "40px" }}>
+        <h1 className="ms-4 mt-5 " style={{ fontSize: "28px" }}>
           {selectedCategory}
         </h1>
         <div className="container my-4 d-flex flex-wrap ">
-          {loading ? <h1>Loading...</h1> : <></>}
+          {loading ? (
+            <div
+              class="spinner"
+              style={{
+                margin: "auto",
+                marginTop:"7rem",
+                color:"gray",
+              }}
+            >
+              <Spinner animation="border" role="status" style={{width:"45px", height:"45px"}}>
+                <span className="visually-hidden" >Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <></>
+          )}
           {recipes.map((recipe) => {
             return (
               <Link
