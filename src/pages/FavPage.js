@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { RecipeContext } from "../context/RecipeContext";
 import { Link } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
+// import {  TiDeleteOutline } from "react-icons/ti";
 
 const FavPage = () => {
   const { state, dispatch } = useContext(RecipeContext);
@@ -25,15 +26,18 @@ const FavPage = () => {
   };
 
   const disLike = async (id) => {
-    const response = await fetch("https://recipe-app-service-53ct.onrender.com/api/favorite/" + id, {
-      method: "DELETE", // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    const response = await fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/favorite/" + id,
+      {
+        method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((json) => {
-        fetchData()
+        fetchData();
       })
       .catch((error) => {
         console.log(error.message);
@@ -62,10 +66,12 @@ const FavPage = () => {
                   >
                     <TiDelete
                       style={{
+                        // color:"gray",
                         fontSize: "36px",
                         position: "absolute",
                         right: "0",
                         top: "0",
+                        cursor: "pointer",
                       }}
                       onClick={() => {
                         disLike(recipe.recipeId._id);
@@ -80,12 +86,16 @@ const FavPage = () => {
                     <Link
                       key={recipe._id}
                       to={`/recipe/${recipe.recipeId._id}`}
+                      style={{ textDecoration: "none" }}
                     >
-                      <div class="card-body p-0 text-center">
+                      <div
+                        class="card-body p-0 text-center"
+                        style={{ color: "black" }}
+                      >
                         <h5 class="card-title m-2 mb-0">
                           {recipe.recipeId.recipeName}
                         </h5>
-                        <p class="card-text m-0">{recipe.recipeId.type}</p>
+                        <p class="card-text m-0">{recipe.recipeId.type} </p>
                       </div>
                     </Link>
                   </div>

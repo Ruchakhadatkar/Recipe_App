@@ -3,6 +3,7 @@ import { json, useParams } from "react-router-dom";
 import { RecipeContext } from "../context/RecipeContext";
 import { BsFillHeartFill } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
+import "./RecipeInfo.css"
 
 const RecipeInfoPage = () => {
   const [isIngredient, setIsIngredient] = useState(true);
@@ -80,8 +81,12 @@ const RecipeInfoPage = () => {
         <>
           {" "}
           <div
-            className="image p-4 d-wrap"
+            className="image p-4 d- m-0"
             style={{
+              borderTop: "1px solid gray",
+              borderBottom: "1px solid gray",
+              borderLeft: "1px solid gray",
+              borderRadius: "8px",
               width: "46%",
               display: "flex",
               justifyContent: "center",
@@ -96,9 +101,10 @@ const RecipeInfoPage = () => {
             />
           </div>
           <div
-            className="recipeInfo p-4 pt-3"
+            className="recipeInfo p-4 pt-3 m-0"
             style={{
               width: "53%",
+              // height: "100%",
               border: "1px solid gray",
               borderRadius: "8px",
             }}
@@ -140,6 +146,7 @@ const RecipeInfoPage = () => {
                 textAlign: "center",
                 fontSize: "20px",
                 backgroundColor: "white",
+                borderRadius: "10px",
               }}
             >
               <div
@@ -148,6 +155,7 @@ const RecipeInfoPage = () => {
                   fontWeight: "500",
                   width: "50%",
                   backgroundColor: isIngredient ? "#ECECEC" : "",
+                  borderRadius: "20px",
                 }}
                 onClick={() => {
                   setIsIngredient(true);
@@ -161,6 +169,7 @@ const RecipeInfoPage = () => {
                   fontWeight: "500",
                   width: "50%",
                   backgroundColor: isIngredient ? "" : "#ECECEC",
+                  borderRadius: "20px",
                 }}
                 onClick={() => {
                   setIsIngredient(false);

@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import SubnavBar from "../component/SubnavBar";
 import { RecipeContext } from "../context/RecipeContext";
 import { Link } from "react-router-dom";
-
 const HomePage = () => {
   const { state, dispatch } = useContext(RecipeContext);
   const { loading, recipes, error, selectedCategory } = state;
@@ -14,7 +13,9 @@ const HomePage = () => {
   const fetchData = async () => {
     dispatch({ type: "RECIPE_FETCH_REQ" });
 
-    const response = await fetch("https://recipe-app-service-53ct.onrender.com/api/recipe")
+    const response = await fetch(
+      "https://recipe-app-service-53ct.onrender.com/api/recipe"
+    )
       .then((res) => res.json())
       .then((json) => {
         dispatch({ type: "RECIPE_FETCH_SUCCESS", payload: json });
@@ -26,12 +27,22 @@ const HomePage = () => {
 
   return (
     <>
-      <SubnavBar />
+      <div
+        className="subnavbar"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "auto",
+        }}
+      >
+        <SubnavBar />
+      </div>
       <div className="container mx-auto">
         <h1 className="ms-4 mt-5 " style={{ fontSize: "40px" }}>
           {selectedCategory}
         </h1>
-        <div className="container my-4 d-flex flex-wrap">
+        <div className="container my-4 d-flex flex-wrap ">
           {loading ? <h1>Loading...</h1> : <></>}
           {recipes.map((recipe) => {
             return (

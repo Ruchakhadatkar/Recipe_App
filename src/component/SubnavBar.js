@@ -21,9 +21,9 @@ const SubnavBar = () => {
       .catch((error) => console.log(error.message));
   };
   return (
-    <div class="container mt-5 d-flex justify-content-evenly">
+    <div class="container mt-5 d-flex d-wrap justify-content-evenly">
       <div
-        class=" mx-3 mb-4"
+        class="mx-3 mb-4"
         style={{ width: "10rem", cursor: "pointer" }}
         onClick={() => {
           fetchByCategory("Salad");
@@ -34,6 +34,7 @@ const SubnavBar = () => {
           class="card-img-top"
           alt="..."
           style={{
+            width:"100%",
             height: "122px",
             borderRadius: "50%",
             border: "dotted orange  5px",

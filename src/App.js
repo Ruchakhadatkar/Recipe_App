@@ -5,7 +5,6 @@ import HomePage from "./pages/HomePage";
 import FavPage from "./pages/FavPage";
 import RecipeInfoPage from "./pages/RecipeInfoPage";
 import Navbar from "./component/Navbar";
-import SubnavBar from "./component/SubnavBar";
 
 function App() {
   return (
